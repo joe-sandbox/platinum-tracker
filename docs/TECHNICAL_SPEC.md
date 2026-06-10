@@ -172,15 +172,21 @@ Keep this section and `AGENTS.md` synchronized.
 ```text
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
+Install browser:   pnpm --dir apps/web exec playwright install chromium
 Migrate database:  cd apps/api && uv run alembic upgrade head
 Develop API:       cd apps/api && uv run platinum-tracker-api
 Develop frontend:  pnpm --dir apps/web dev
+Format API:        cd apps/api && uv run ruff format .
+Check API format:  cd apps/api && uv run ruff format --check .
+Format frontend:   pnpm --dir apps/web format
+Check web format:  pnpm --dir apps/web format:check
 Lint API:          cd apps/api && uv run ruff check .
 Lint frontend:     pnpm --dir apps/web lint
 Typecheck API:     cd apps/api && uv run mypy
 Typecheck frontend: pnpm --dir apps/web typecheck
 Test API:          cd apps/api && uv run pytest
-Test frontend:     pnpm --dir apps/web test
+Test frontend:     pnpm --dir apps/web test:unit
+Test end-to-end:   pnpm --dir apps/web test:e2e
 Build frontend:    pnpm --dir apps/web build
 Complete CI:       [TODO: scripts/ci.sh]
 ```

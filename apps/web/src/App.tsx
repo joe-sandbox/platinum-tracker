@@ -11,8 +11,8 @@ function App() {
           Platinum Tracker
         </h1>
         <p className="max-w-xl text-lg leading-8 text-muted-foreground">
-          Create game guides and track every collectible on the way to your
-          next platinum trophy.
+          Create game guides and track every collectible on the way to your next
+          platinum trophy.
         </p>
         <Button size="lg">Create your first guide</Button>
       </section>

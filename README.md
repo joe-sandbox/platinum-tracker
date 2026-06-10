@@ -35,6 +35,7 @@ Install dependencies:
 ```bash
 (cd apps/api && uv sync)
 pnpm install
+(cd apps/web && pnpm exec playwright install chromium)
 ```
 
 Initialize or update the local SQLite database:

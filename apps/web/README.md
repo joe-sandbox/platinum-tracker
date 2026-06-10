@@ -9,10 +9,27 @@ pnpm install
 pnpm dev
 ```
 
-## Tests
+## Quality Checks
 
 ```bash
-pnpm test
+pnpm format
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test:unit
+pnpm build
+```
+
+Install the Playwright browser once:
+
+```bash
+pnpm exec playwright install chromium
+```
+
+Run the browser smoke tests:
+
+```bash
+pnpm test:e2e
 ```
 
 ## UI Components

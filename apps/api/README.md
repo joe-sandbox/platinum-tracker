@@ -15,9 +15,13 @@ v1. `PLATINUM_TRACKER_API_HOST` accepts only literal loopback addresses such as
 `127.0.0.1` or `::1`; wildcard, LAN, and hostname values are rejected. The port
 can be changed with `PLATINUM_TRACKER_API_PORT`.
 
-## Tests
+## Quality Checks
 
 ```bash
+uv run ruff format .
+uv run ruff format --check .
+uv run ruff check .
+uv run mypy
 uv run pytest
 ```
 
