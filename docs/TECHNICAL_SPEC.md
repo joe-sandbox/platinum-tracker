@@ -162,13 +162,18 @@ are missing or failing.
 Keep this section and `AGENTS.md` synchronized.
 
 ```text
-Install:    [TODO]
-Develop:    [TODO]
-Format:     [TODO]
-Lint:       [TODO]
-Typecheck:  [TODO]
-Test:       [TODO]
-Build:      [TODO]
+Install API:       cd apps/api && uv sync
+Install frontend:  pnpm install
+Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
+Develop frontend:  pnpm --dir apps/web dev
+Lint API:          cd apps/api && uv run ruff check .
+Lint frontend:     pnpm --dir apps/web lint
+Typecheck API:     cd apps/api && uv run mypy
+Typecheck frontend: pnpm --dir apps/web typecheck
+Test API:          cd apps/api && uv run pytest
+Test frontend:     pnpm --dir apps/web test
+Build frontend:    pnpm --dir apps/web build
+Complete CI:       [TODO: scripts/ci.sh]
 ```
 
 ## Architecture Decisions

@@ -71,18 +71,22 @@ Before considering a change complete:
 3. Verify progress totals and completion percentages at boundary values.
 4. Update specifications when behavior or architecture changes.
 
-Commands are to be finalized when the projects are scaffolded. The complete
-local verification entry point will be `scripts/ci.sh`; do not add GitHub
-Actions unless the project requirements change.
+The complete local verification entry point will be `scripts/ci.sh`; do not add
+GitHub Actions unless the project requirements change.
 
 ```text
-Install:    [TODO]
-Develop:    [TODO]
-Format:     [TODO]
-Lint:       [TODO]
-Typecheck:  [TODO]
-Test:       [TODO]
-Build:      [TODO]
+Install API:       cd apps/api && uv sync
+Install frontend:  pnpm install
+Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
+Develop frontend:  pnpm --dir apps/web dev
+Lint API:          cd apps/api && uv run ruff check .
+Lint frontend:     pnpm --dir apps/web lint
+Typecheck API:     cd apps/api && uv run mypy
+Typecheck frontend: pnpm --dir apps/web typecheck
+Test API:          cd apps/api && uv run pytest
+Test frontend:     pnpm --dir apps/web test
+Build frontend:    pnpm --dir apps/web build
+Complete CI:       [TODO: scripts/ci.sh]
 ```
 
 ## Definition of Done

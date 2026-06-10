@@ -20,3 +20,35 @@ Complete the documents in this order:
 6. [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
 
 Repository guidance for coding agents is in [AGENTS.md](AGENTS.md).
+
+## Development
+
+Prerequisites:
+
+- Python 3.13
+- `uv`
+- Node.js 24 LTS
+- `pnpm` 10
+
+Install dependencies:
+
+```bash
+(cd apps/api && uv sync)
+pnpm install
+```
+
+Run the API:
+
+```bash
+cd apps/api
+uv run fastapi dev src/platinum_tracker_api/main.py
+```
+
+Run the frontend in another terminal:
+
+```bash
+pnpm --dir apps/web dev
+```
+
+The API health endpoint is `http://127.0.0.1:8000/api/health`. The frontend
+development server is `http://127.0.0.1:5173`.

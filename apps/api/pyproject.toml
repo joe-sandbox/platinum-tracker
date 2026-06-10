@@ -1,0 +1,41 @@
+[project]
+name = "platinum-tracker-api"
+version = "0.1.0"
+description = "Local API for Platinum Tracker"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi[standard]>=0.115.0,<1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.0,<1.0.0",
+    "mypy>=1.15.0,<2.0.0",
+    "pytest>=8.3.0,<9.0.0",
+    "ruff>=0.11.0,<1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/platinum_tracker_api"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+packages = ["platinum_tracker_api"]
+mypy_path = "src"
