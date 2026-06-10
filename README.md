@@ -48,7 +48,7 @@ Run the API:
 
 ```bash
 cd apps/api
-uv run fastapi dev src/platinum_tracker_api/main.py
+uv run platinum-tracker-api
 ```
 
 Run the frontend in another terminal:
@@ -62,3 +62,6 @@ development server is `http://127.0.0.1:5173`.
 
 Local data is stored in the ignored `data/`, `media/`, and `imports/`
 directories at the repository root.
+
+The unauthenticated API accepts only literal loopback bind addresses and
+defaults to `127.0.0.1`.

@@ -1,6 +1,7 @@
+from ipaddress import ip_address
 from pathlib import Path
 
-from pydantic import computed_field
+from pydantic import computed_field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,6 +21,21 @@ class Settings(BaseSettings):
     media_dir: Path | None = None
     source_dir: Path | None = None
     database_path: Path | None = None
+    api_host: str = "127.0.0.1"
+    api_port: int = 8000
+
+    @field_validator("api_host")
+    @classmethod
+    def require_loopback_host(cls, value: str) -> str:
+        try:
+            address = ip_address(value)
+        except ValueError as error:
+            raise ValueError("API host must be a literal loopback address") from error
+
+        if not address.is_loopback:
+            raise ValueError("API host must be a loopback address")
+
+        return value
 
     @computed_field  # type: ignore[prop-decorator]
     @property

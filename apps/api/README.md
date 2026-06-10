@@ -7,8 +7,13 @@ FastAPI backend for Platinum Tracker.
 ```bash
 uv sync
 uv run alembic upgrade head
-uv run fastapi dev src/platinum_tracker_api/main.py
+uv run platinum-tracker-api
 ```
+
+The server binds to `127.0.0.1:8000` by default and has no authentication in
+v1. `PLATINUM_TRACKER_API_HOST` accepts only literal loopback addresses such as
+`127.0.0.1` or `::1`; wildcard, LAN, and hostname values are rejected. The port
+can be changed with `PLATINUM_TRACKER_API_PORT`.
 
 ## Tests
 

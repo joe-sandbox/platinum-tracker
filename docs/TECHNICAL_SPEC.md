@@ -114,6 +114,9 @@ For each endpoint or server action, define:
 - Authentication and session strategy: None in v1.
 - Authorization boundaries: Bind to loopback by default. Exposing the server
   to a LAN or internet is unsupported until authentication is added.
+- API bind enforcement: `PLATINUM_TRACKER_API_HOST` must be a literal loopback
+  IP address. The default is `127.0.0.1`; wildcard, LAN, and hostname values
+  fail configuration validation.
 - Rate limiting or abuse controls: Required for URL imports even on localhost.
 - Dependency and secret scanning: [TODO]
 
@@ -170,7 +173,7 @@ Keep this section and `AGENTS.md` synchronized.
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
 Migrate database:  cd apps/api && uv run alembic upgrade head
-Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
+Develop API:       cd apps/api && uv run platinum-tracker-api
 Develop frontend:  pnpm --dir apps/web dev
 Lint API:          cd apps/api && uv run ruff check .
 Lint frontend:     pnpm --dir apps/web lint
@@ -194,6 +197,7 @@ Record consequential decisions below or create individual ADR files.
 | 2026-06-10 | SQLite database | Local single-user deployment | Simple backups; unsuitable for many concurrent writers |
 | 2026-06-10 | Local media and source storage | No cloud dependency or cost | Backups must include filesystem data |
 | 2026-06-10 | No authentication in v1 | Loopback-only personal tool | Must not be exposed to untrusted networks |
+| 2026-06-10 | Reject non-loopback bind hosts | Prevent accidental unauthenticated network exposure | LAN access requires a future authenticated mode |
 | 2026-06-10 | In-process deterministic imports | Low scale and simple operation | API restart interrupts active imports |
 | 2026-06-10 | Ruff and mypy | Consistent Python style and static checks | Both run in local CI |
 | 2026-06-10 | Local CI script | No hosted CI is wanted | Quality checks depend on running `scripts/ci.sh` |

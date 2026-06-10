@@ -11,6 +11,9 @@ dependencies = [
     "sqlalchemy>=2.0.0,<3.0.0",
 ]
 
+[project.scripts]
+platinum-tracker-api = "platinum_tracker_api.server:main"
+
 [dependency-groups]
 dev = [
     "httpx>=0.28.0,<1.0.0",

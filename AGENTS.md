@@ -78,7 +78,7 @@ GitHub Actions unless the project requirements change.
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
 Migrate database:  cd apps/api && uv run alembic upgrade head
-Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
+Develop API:       cd apps/api && uv run platinum-tracker-api
 Develop frontend:  pnpm --dir apps/web dev
 Lint API:          cd apps/api && uv run ruff check .
 Lint frontend:     pnpm --dir apps/web lint
