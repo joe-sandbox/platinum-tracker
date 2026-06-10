@@ -25,7 +25,16 @@ Game
 `-- Settings / data management
 ```
 
-Final navigation: [TODO]
+Final navigation:
+
+- Dashboard
+- Games
+- Guides
+- Import
+- Settings
+
+Desktop uses a persistent left sidebar with the current game context. Small
+viewports use a fixed bottom navigation bar with the same destinations.
 
 ## Core Screens
 
@@ -87,7 +96,7 @@ Final navigation: [TODO]
 
 ## Responsive Behavior
 
-- Small viewport navigation: [TODO]
+- Small viewport navigation: Fixed bottom navigation with icons and labels.
 - List or card behavior: [TODO]
 - Detail presentation: [TODO]
 - Large-table alternative on mobile: [TODO]

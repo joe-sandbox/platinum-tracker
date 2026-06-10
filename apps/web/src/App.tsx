@@ -1,22 +1,26 @@
-import { Button } from "@/components/ui/button";
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import { AppShell } from "@/components/app-shell";
+import {
+  DashboardPage,
+  GamesPage,
+  GuidesPage,
+  ImportPage,
+  SettingsPage,
+} from "@/pages";
 
 function App() {
   return (
-    <main className="grid min-h-svh place-items-center bg-muted/30 px-6 py-16">
-      <section className="w-full max-w-2xl space-y-6">
-        <p className="text-sm font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-          Local trophy companion
-        </p>
-        <h1 className="text-5xl font-semibold tracking-tight sm:text-7xl">
-          Platinum Tracker
-        </h1>
-        <p className="max-w-xl text-lg leading-8 text-muted-foreground">
-          Create game guides and track every collectible on the way to your next
-          platinum trophy.
-        </p>
-        <Button size="lg">Create your first guide</Button>
-      </section>
-    </main>
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="games" element={<GamesPage />} />
+        <Route path="guides" element={<GuidesPage />} />
+        <Route path="import" element={<ImportPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
+      </Route>
+    </Routes>
   );
 }
 
