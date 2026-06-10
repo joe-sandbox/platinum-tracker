@@ -77,6 +77,7 @@ GitHub Actions unless the project requirements change.
 ```text
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
+Migrate database:  cd apps/api && uv run alembic upgrade head
 Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
 Develop frontend:  pnpm --dir apps/web dev
 Lint API:          cd apps/api && uv run ruff check .

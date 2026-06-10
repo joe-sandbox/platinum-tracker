@@ -78,6 +78,11 @@ docs/
 
 - Source of truth for games and guides: API database.
 - Source of truth for player progress: API database.
+- Default database path: `data/platinum-tracker.db`.
+- Default uploaded image path: `media/`.
+- Default retained import source path: `imports/`.
+- All storage paths are configurable through `PLATINUM_TRACKER_*` environment
+  variables.
 - Offline write behavior: The application is local; writes require the local
   API process to be running.
 - Multi-device synchronization: Not supported in v1.
@@ -164,6 +169,7 @@ Keep this section and `AGENTS.md` synchronized.
 ```text
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
+Migrate database:  cd apps/api && uv run alembic upgrade head
 Develop API:       cd apps/api && uv run fastapi dev src/platinum_tracker_api/main.py
 Develop frontend:  pnpm --dir apps/web dev
 Lint API:          cd apps/api && uv run ruff check .

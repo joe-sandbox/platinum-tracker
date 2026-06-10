@@ -5,7 +5,10 @@ description = "Local API for Platinum Tracker"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
+    "alembic>=1.15.0,<2.0.0",
     "fastapi[standard]>=0.115.0,<1.0.0",
+    "pydantic-settings>=2.8.0,<3.0.0",
+    "sqlalchemy>=2.0.0,<3.0.0",
 ]
 
 [dependency-groups]

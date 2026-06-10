@@ -16,7 +16,7 @@ specifications have enough detail to estimate the first release.
 - [x] Select the stack and record the reasons.
 - [x] Scaffold FastAPI and React/TypeScript applications.
 - [x] Add shadcn/ui and Tailwind CSS.
-- [ ] Configure SQLite, Alembic, and local media/source directories.
+- [x] Configure SQLite, Alembic, and local media/source directories.
 - [ ] Bind the API to loopback by default; do not add authentication in v1.
 - [ ] Add formatting, linting, type checking, and tests.
 - [ ] Add `scripts/ci.sh` to run all required checks locally; do not configure

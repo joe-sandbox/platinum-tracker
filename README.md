@@ -37,6 +37,13 @@ Install dependencies:
 pnpm install
 ```
 
+Initialize or update the local SQLite database:
+
+```bash
+cd apps/api
+uv run alembic upgrade head
+```
+
 Run the API:
 
 ```bash
@@ -52,3 +59,6 @@ pnpm --dir apps/web dev
 
 The API health endpoint is `http://127.0.0.1:8000/api/health`. The frontend
 development server is `http://127.0.0.1:5173`.
+
+Local data is stored in the ignored `data/`, `media/`, and `imports/`
+directories at the repository root.
