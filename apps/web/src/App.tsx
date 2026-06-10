@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppShell } from "@/components/app-shell";
 import { GamesPage, GuidesPage } from "@/crud-pages";
+import { GuideContentPage } from "@/guide-content-page";
 import { DashboardPage, ImportPage, SettingsPage } from "@/pages";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route index element={<DashboardPage />} />
         <Route path="games" element={<GamesPage />} />
         <Route path="guides" element={<GuidesPage />} />
+        <Route path="guides/:guideId/content" element={<GuideContentPage />} />
         <Route path="import" element={<ImportPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate replace to="/" />} />

@@ -1,3 +1,5 @@
+from typing import cast
+
 from fastapi.testclient import TestClient
 
 
@@ -12,7 +14,7 @@ def create_game(client: TestClient, title: str = "Test Game") -> dict[str, objec
         },
     )
     assert response.status_code == 201
-    return response.json()
+    return cast(dict[str, object], response.json())
 
 
 def create_guide(
@@ -31,7 +33,69 @@ def create_guide(
         },
     )
     assert response.status_code == 201
-    return response.json()
+    return cast(dict[str, object], response.json())
+
+
+def create_chapter(client: TestClient, guide_id: str) -> dict[str, object]:
+    response = client.post(
+        "/api/chapters",
+        json={
+            "guide_id": guide_id,
+            "title": "Chapter 1",
+            "description": "The beginning.",
+        },
+    )
+    assert response.status_code == 201
+    return cast(dict[str, object], response.json())
+
+
+def create_section(client: TestClient, chapter_id: str) -> dict[str, object]:
+    response = client.post(
+        "/api/sections",
+        json={
+            "chapter_id": chapter_id,
+            "title": "Opening",
+            "description": None,
+        },
+    )
+    assert response.status_code == 201
+    return cast(dict[str, object], response.json())
+
+
+def create_collectible_type(
+    client: TestClient,
+    guide_id: str,
+) -> dict[str, object]:
+    response = client.post(
+        "/api/collectible-types",
+        json={
+            "guide_id": guide_id,
+            "name": "Document",
+            "color": "amber",
+            "icon": "file-text",
+        },
+    )
+    assert response.status_code == 201
+    return cast(dict[str, object], response.json())
+
+
+def create_collectible(
+    client: TestClient,
+    section_id: str,
+    collectible_type_id: str,
+) -> dict[str, object]:
+    response = client.post(
+        "/api/collectibles",
+        json={
+            "section_id": section_id,
+            "collectible_type_id": collectible_type_id,
+            "title": "Captain's Log",
+            "description": "On the desk.",
+            "source_url": "https://example.com/log",
+        },
+    )
+    assert response.status_code == 201
+    return cast(dict[str, object], response.json())
 
 
 def test_game_crud(api_client: TestClient) -> None:
@@ -136,3 +200,126 @@ def test_cors_allows_loopback_frontend(api_client: TestClient) -> None:
 
     assert response.status_code == 200
     assert response.headers["access-control-allow-origin"] == ("http://127.0.0.1:5173")
+
+
+def test_guide_content_crud_and_positions(api_client: TestClient) -> None:
+    game = create_game(api_client)
+    guide = create_guide(api_client, str(game["id"]))
+    chapter = create_chapter(api_client, str(guide["id"]))
+    second_chapter = create_chapter(api_client, str(guide["id"]))
+    section = create_section(api_client, str(chapter["id"]))
+    collectible_type = create_collectible_type(api_client, str(guide["id"]))
+    collectible = create_collectible(
+        api_client,
+        str(section["id"]),
+        str(collectible_type["id"]),
+    )
+
+    assert chapter["position"] == 1
+    assert second_chapter["position"] == 2
+    assert api_client.get(f"/api/chapters/{chapter['id']}").json() == chapter
+    assert api_client.get("/api/chapters", params={"guide_id": guide["id"]}).json() == [
+        chapter,
+        second_chapter,
+    ]
+    assert api_client.get(
+        "/api/sections", params={"chapter_id": chapter["id"]}
+    ).json() == [section]
+    assert api_client.get(
+        "/api/collectible-types", params={"guide_id": guide["id"]}
+    ).json() == [collectible_type]
+    assert api_client.get(
+        "/api/collectibles", params={"section_id": section["id"]}
+    ).json() == [collectible]
+
+    updated = api_client.put(
+        f"/api/collectibles/{collectible['id']}",
+        json={
+            "section_id": section["id"],
+            "collectible_type_id": collectible_type["id"],
+            "title": "Updated Log",
+            "description": None,
+            "source_url": None,
+        },
+    )
+    assert updated.status_code == 200
+    assert updated.json()["title"] == "Updated Log"
+    assert updated.json()["position"] == 1
+
+    assert (
+        api_client.delete(f"/api/collectibles/{collectible['id']}").status_code == 204
+    )
+    assert (
+        api_client.delete(
+            f"/api/collectible-types/{collectible_type['id']}"
+        ).status_code
+        == 204
+    )
+    assert api_client.delete(f"/api/chapters/{chapter['id']}").status_code == 204
+    assert api_client.get(f"/api/sections/{section['id']}").status_code == 404
+
+
+def test_collectible_requires_type_from_same_guide(api_client: TestClient) -> None:
+    first_game = create_game(api_client, "First")
+    second_game = create_game(api_client, "Second")
+    first_guide = create_guide(api_client, str(first_game["id"]), "First Guide")
+    second_guide = create_guide(api_client, str(second_game["id"]), "Second Guide")
+    chapter = create_chapter(api_client, str(first_guide["id"]))
+    section = create_section(api_client, str(chapter["id"]))
+    other_type = create_collectible_type(api_client, str(second_guide["id"]))
+
+    response = api_client.post(
+        "/api/collectibles",
+        json={
+            "section_id": section["id"],
+            "collectible_type_id": other_type["id"],
+            "title": "Invalid",
+        },
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"] == (
+        "Section and collectible type must belong to the same guide"
+    )
+
+
+def test_type_in_use_cannot_be_deleted(api_client: TestClient) -> None:
+    game = create_game(api_client)
+    guide = create_guide(api_client, str(game["id"]))
+    chapter = create_chapter(api_client, str(guide["id"]))
+    section = create_section(api_client, str(chapter["id"]))
+    collectible_type = create_collectible_type(api_client, str(guide["id"]))
+    create_collectible(
+        api_client,
+        str(section["id"]),
+        str(collectible_type["id"]),
+    )
+
+    response = api_client.delete(f"/api/collectible-types/{collectible_type['id']}")
+
+    assert response.status_code == 409
+    assert response.json()["detail"] == (
+        "Cannot delete a collectible type that is in use"
+    )
+
+
+def test_deleting_guide_cascades_through_content(api_client: TestClient) -> None:
+    game = create_game(api_client)
+    guide = create_guide(api_client, str(game["id"]))
+    chapter = create_chapter(api_client, str(guide["id"]))
+    section = create_section(api_client, str(chapter["id"]))
+    collectible_type = create_collectible_type(api_client, str(guide["id"]))
+    collectible = create_collectible(
+        api_client,
+        str(section["id"]),
+        str(collectible_type["id"]),
+    )
+
+    assert api_client.delete(f"/api/guides/{guide['id']}").status_code == 204
+    assert api_client.get(f"/api/chapters/{chapter['id']}").status_code == 404
+    assert api_client.get(f"/api/sections/{section['id']}").status_code == 404
+    assert (
+        api_client.get(f"/api/collectible-types/{collectible_type['id']}").status_code
+        == 404
+    )
+    assert api_client.get(f"/api/collectibles/{collectible['id']}").status_code == 404

@@ -68,8 +68,8 @@ records.
 
 - [ ] Add, edit, and delete games.
 - [ ] Add, edit, and delete guides within a game.
-- [ ] Manage chapters, sections, collectible types, and collectibles.
-- [ ] Preserve the `game > guide > chapter > section > collectible` hierarchy.
+- [x] Manage chapters, sections, collectible types, and collectibles.
+- [x] Preserve the `game > guide > chapter > section > collectible` hierarchy.
 - [ ] Reorder chapters, sections, collectible types, and collectibles.
 - [ ] Attach multiple images to a collectible.
 - [ ] Set a collectible status to `collected`, `not_found`, or `missing`;

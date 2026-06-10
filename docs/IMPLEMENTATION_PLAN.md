@@ -31,7 +31,7 @@ loads fixtures, and `./scripts/ci.sh` passes.
 
 - [x] Build the application shell and navigation.
 - [x] Implement game and guide CRUD.
-- [ ] Implement chapters, sections, collectible types, and collectibles.
+- [x] Implement chapters, sections, collectible types, and collectibles.
 - [ ] Implement ordering within each hierarchy level.
 - [ ] Add multiple collectible images.
 - [ ] Add coordinated local backup and restore for database, media, and sources.

@@ -12,7 +12,9 @@ test("navigates through the application shell", async ({ page }) => {
     .click();
 
   await expect(page).toHaveURL(/\/guides$/);
-  await expect(page.getByRole("heading", { name: "Guides" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Guides", exact: true }),
+  ).toBeVisible();
 });
 
 test("uses mobile navigation on a narrow viewport", async ({ page }) => {
@@ -59,6 +61,30 @@ test("creates, edits, and deletes a game and guide", async ({ page }) => {
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByRole("heading", { name: guideTitle })).toBeVisible();
 
+  await page
+    .locator("article")
+    .filter({ hasText: guideTitle })
+    .getByRole("link", { name: "Manage content" })
+    .click();
+  await page.getByRole("button", { name: "Add type" }).click();
+  await page.getByLabel("Name").fill("Document");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("Document", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Add chapter" }).click();
+  await page.getByLabel("Title").fill("Chapter One");
+  await page.getByRole("button", { name: "Save" }).click();
+  await page
+    .getByRole("button", { name: "Add section to Chapter One" })
+    .click();
+  await page.getByLabel("Title").fill("Opening");
+  await page.getByRole("button", { name: "Save" }).click();
+  await page.getByRole("button", { name: "Add collectible" }).click();
+  await page.getByLabel("Title").fill("Captain's Log");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("Captain's Log")).toBeVisible();
+
+  await page.getByRole("link", { name: "Back to guides" }).click();
   await page.getByRole("button", { name: `Edit ${guideTitle}` }).click();
   await page.getByLabel("Title").fill(updatedGuideTitle);
   await page.getByRole("button", { name: "Save" }).click();

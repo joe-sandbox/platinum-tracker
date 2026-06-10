@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { BookOpen, Gamepad2, Pencil, Plus, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import {
   api,
@@ -513,6 +514,11 @@ export function GuidesPage() {
                   )}
                 </div>
                 <div className="flex gap-2">
+                  <Button asChild variant="outline">
+                    <Link to={`/guides/${guide.id}/content`}>
+                      Manage content
+                    </Link>
+                  </Button>
                   <Button
                     aria-label={`Edit ${guide.title}`}
                     onClick={() => openEditForm(guide)}

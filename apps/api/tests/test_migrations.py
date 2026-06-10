@@ -28,7 +28,14 @@ def test_alembic_upgrade_creates_current_schema(
             ).fetchall()
         }
 
-    assert revision == ("20260610_0002",)
-    assert {"games", "guides"} <= tables
+    assert revision == ("20260610_0003",)
+    assert {
+        "games",
+        "guides",
+        "chapters",
+        "sections",
+        "collectible_types",
+        "collectibles",
+    } <= tables
     assert (tmp_path / "media").is_dir()
     assert (tmp_path / "imports").is_dir()
