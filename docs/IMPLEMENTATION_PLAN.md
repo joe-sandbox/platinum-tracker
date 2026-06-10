@@ -15,7 +15,7 @@ specifications have enough detail to estimate the first release.
 - [x] Resolve first-release questions in the specifications.
 - [x] Select the stack and record the reasons.
 - [x] Scaffold FastAPI and React/TypeScript applications.
-- [ ] Add shadcn/ui and Tailwind CSS.
+- [x] Add shadcn/ui and Tailwind CSS.
 - [ ] Configure SQLite, Alembic, and local media/source directories.
 - [ ] Bind the API to loopback by default; do not add authentication in v1.
 - [ ] Add formatting, linting, type checking, and tests.

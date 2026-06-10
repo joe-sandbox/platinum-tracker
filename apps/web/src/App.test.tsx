@@ -13,5 +13,8 @@ describe("App", () => {
     expect(
       screen.getByText(/create game guides and track every collectible/i),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Create your first guide" }),
+    ).toBeInTheDocument();
   });
 });
