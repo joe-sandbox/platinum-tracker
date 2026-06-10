@@ -19,7 +19,7 @@ specifications have enough detail to estimate the first release.
 - [x] Configure SQLite, Alembic, and local media/source directories.
 - [x] Bind the API to loopback by default; do not add authentication in v1.
 - [x] Add formatting, linting, type checking, and tests.
-- [ ] Add `scripts/ci.sh` to run all required checks locally; do not configure
+- [x] Add `scripts/ci.sh` to run all required checks locally; do not configure
   GitHub Actions.
 - [ ] Create a safe `.env.example` if environment variables are used.
 - [ ] Add initial game and guide fixtures.

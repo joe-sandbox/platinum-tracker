@@ -71,8 +71,9 @@ Before considering a change complete:
 3. Verify progress totals and completion percentages at boundary values.
 4. Update specifications when behavior or architecture changes.
 
-The complete local verification entry point will be `scripts/ci.sh`; do not add
-GitHub Actions unless the project requirements change.
+The complete local verification entry point is `./scripts/ci.sh`; do not add
+GitHub Actions unless the project requirements change. `SKIP_E2E=1` is only
+for environments that cannot launch Chromium and is not a complete CI run.
 
 ```text
 Install API:       cd apps/api && uv sync
@@ -92,7 +93,7 @@ Test API:          cd apps/api && uv run pytest
 Test frontend:     pnpm --dir apps/web test:unit
 Test end-to-end:   pnpm --dir apps/web test:e2e
 Build frontend:    pnpm --dir apps/web build
-Complete CI:       [TODO: scripts/ci.sh]
+Complete CI:       ./scripts/ci.sh
 ```
 
 ## Definition of Done

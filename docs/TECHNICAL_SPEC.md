@@ -188,7 +188,7 @@ Test API:          cd apps/api && uv run pytest
 Test frontend:     pnpm --dir apps/web test:unit
 Test end-to-end:   pnpm --dir apps/web test:e2e
 Build frontend:    pnpm --dir apps/web build
-Complete CI:       [TODO: scripts/ci.sh]
+Complete CI:       ./scripts/ci.sh
 ```
 
 ## Architecture Decisions

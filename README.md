@@ -66,3 +66,17 @@ directories at the repository root.
 
 The unauthenticated API accepts only literal loopback bind addresses and
 defaults to `127.0.0.1`.
+
+## Local CI
+
+Run every formatting, linting, type-checking, unit, build, and browser test:
+
+```bash
+./scripts/ci.sh
+```
+
+For environments where Chromium cannot run, omit only the end-to-end step:
+
+```bash
+SKIP_E2E=1 ./scripts/ci.sh
+```
