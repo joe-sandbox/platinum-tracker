@@ -22,9 +22,10 @@ specifications have enough detail to estimate the first release.
 - [x] Add `scripts/ci.sh` to run all required checks locally; do not configure
   GitHub Actions.
 - [x] Create a safe `.env.example` if environment variables are used.
-- [ ] Add initial game and guide fixtures.
+- [x] Add initial game and guide fixtures.
 
-Exit criteria: [TODO]
+Exit criteria: Both applications install and build, the database migrates and
+loads fixtures, and `./scripts/ci.sh` passes.
 
 ## Milestone 1: Guide Content
 

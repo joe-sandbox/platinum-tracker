@@ -3,6 +3,9 @@ from logging.config import fileConfig
 from alembic import context
 from platinum_tracker_api.config import get_settings
 from platinum_tracker_api.db import Base, create_database_engine
+from platinum_tracker_api.models import Game, Guide
+
+_models = (Game, Guide)
 
 config = context.config
 

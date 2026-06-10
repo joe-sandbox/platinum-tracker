@@ -79,6 +79,7 @@ for environments that cannot launch Chromium and is not a complete CI run.
 Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
 Migrate database:  cd apps/api && uv run alembic upgrade head
+Load fixtures:     cd apps/api && uv run platinum-tracker-load-fixtures
 Develop API:       cd apps/api && uv run platinum-tracker-api
 Develop frontend:  pnpm --dir apps/web dev
 Format API:        cd apps/api && uv run ruff format .

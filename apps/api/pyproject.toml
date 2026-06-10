@@ -13,6 +13,7 @@ dependencies = [
 
 [project.scripts]
 platinum-tracker-api = "platinum_tracker_api.server:main"
+platinum-tracker-load-fixtures = "platinum_tracker_api.fixtures:main"
 
 [dependency-groups]
 dev = [
@@ -28,6 +29,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/platinum_tracker_api"]
+
+[tool.hatch.build]
+include = [
+    "src/platinum_tracker_api/**/*.json",
+]
 
 [tool.pytest.ini_options]
 addopts = "-q"

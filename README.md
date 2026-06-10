@@ -53,6 +53,7 @@ Initialize or update the local SQLite database:
 ```bash
 cd apps/api
 uv run alembic upgrade head
+uv run platinum-tracker-load-fixtures
 ```
 
 Run the API:

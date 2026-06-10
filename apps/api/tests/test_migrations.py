@@ -21,7 +21,14 @@ def test_alembic_upgrade_creates_current_schema(
         revision = connection.execute(
             "SELECT version_num FROM alembic_version"
         ).fetchone()
+        tables = {
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master WHERE type = 'table'"
+            ).fetchall()
+        }
 
-    assert revision == ("20260610_0001",)
+    assert revision == ("20260610_0002",)
+    assert {"games", "guides"} <= tables
     assert (tmp_path / "media").is_dir()
     assert (tmp_path / "imports").is_dir()

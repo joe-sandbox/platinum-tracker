@@ -178,6 +178,7 @@ Install API:       cd apps/api && uv sync
 Install frontend:  pnpm install
 Install browser:   pnpm --dir apps/web exec playwright install chromium
 Migrate database:  cd apps/api && uv run alembic upgrade head
+Load fixtures:     cd apps/api && uv run platinum-tracker-load-fixtures
 Develop API:       cd apps/api && uv run platinum-tracker-api
 Develop frontend:  pnpm --dir apps/web dev
 Format API:        cd apps/api && uv run ruff format .
@@ -209,6 +210,7 @@ Record consequential decisions below or create individual ADR files.
 | 2026-06-10 | No authentication in v1 | Loopback-only personal tool | Must not be exposed to untrusted networks |
 | 2026-06-10 | Reject non-loopback bind hosts | Prevent accidental unauthenticated network exposure | LAN access requires a future authenticated mode |
 | 2026-06-10 | Safe environment templates | Make local overrides discoverable without committing secrets | API and frontend use separate `.env` files |
+| 2026-06-10 | Stable idempotent fixtures | Repeatable local setup without duplicate sample rows | Fixture UUIDs must remain stable |
 | 2026-06-10 | In-process deterministic imports | Low scale and simple operation | API restart interrupts active imports |
 | 2026-06-10 | Ruff and mypy | Consistent Python style and static checks | Both run in local CI |
 | 2026-06-10 | Local CI script | No hosted CI is wanted | Quality checks depend on running `scripts/ci.sh` |

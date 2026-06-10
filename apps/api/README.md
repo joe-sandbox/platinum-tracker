@@ -7,6 +7,7 @@ FastAPI backend for Platinum Tracker.
 ```bash
 uv sync
 uv run alembic upgrade head
+uv run platinum-tracker-load-fixtures
 uv run platinum-tracker-api
 ```
 
@@ -51,6 +52,15 @@ Create or update the SQLite schema:
 ```bash
 uv run alembic upgrade head
 ```
+
+Load the idempotent starter game and guide:
+
+```bash
+uv run platinum-tracker-load-fixtures
+```
+
+The fixture uses stable UUIDs, so rerunning the command updates the starter
+records without creating duplicates.
 
 Create a migration after changing SQLAlchemy models:
 
