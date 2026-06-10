@@ -38,6 +38,16 @@ pnpm install
 (cd apps/web && pnpm exec playwright install chromium)
 ```
 
+Optional local configuration:
+
+```bash
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env
+```
+
+The defaults work without either file. Never place secrets in frontend
+`VITE_*` variables because they are bundled into browser code.
+
 Initialize or update the local SQLite database:
 
 ```bash

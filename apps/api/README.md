@@ -15,6 +15,15 @@ v1. `PLATINUM_TRACKER_API_HOST` accepts only literal loopback addresses such as
 `127.0.0.1` or `::1`; wildcard, LAN, and hostname values are rejected. The port
 can be changed with `PLATINUM_TRACKER_API_PORT`.
 
+The API loads optional overrides from `.env` at the repository root. Start
+from the safe template:
+
+```bash
+cp ../../.env.example ../../.env
+```
+
+The application does not require secrets in v1.
+
 ## Quality Checks
 
 ```bash

@@ -83,6 +83,10 @@ docs/
 - Default retained import source path: `imports/`.
 - All storage paths are configurable through `PLATINUM_TRACKER_*` environment
   variables.
+- Optional API overrides load from the repository-level `.env`, documented by
+  `.env.example`.
+- Frontend variables load from `apps/web/.env`; all `VITE_*` values are public
+  browser configuration and must never contain secrets.
 - Offline write behavior: The application is local; writes require the local
   API process to be running.
 - Multi-device synchronization: Not supported in v1.
@@ -204,6 +208,7 @@ Record consequential decisions below or create individual ADR files.
 | 2026-06-10 | Local media and source storage | No cloud dependency or cost | Backups must include filesystem data |
 | 2026-06-10 | No authentication in v1 | Loopback-only personal tool | Must not be exposed to untrusted networks |
 | 2026-06-10 | Reject non-loopback bind hosts | Prevent accidental unauthenticated network exposure | LAN access requires a future authenticated mode |
+| 2026-06-10 | Safe environment templates | Make local overrides discoverable without committing secrets | API and frontend use separate `.env` files |
 | 2026-06-10 | In-process deterministic imports | Low scale and simple operation | API restart interrupts active imports |
 | 2026-06-10 | Ruff and mypy | Consistent Python style and static checks | Both run in local CI |
 | 2026-06-10 | Local CI script | No hosted CI is wanted | Quality checks depend on running `scripts/ci.sh` |

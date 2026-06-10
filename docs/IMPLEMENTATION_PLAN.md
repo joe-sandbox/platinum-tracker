@@ -21,7 +21,7 @@ specifications have enough detail to estimate the first release.
 - [x] Add formatting, linting, type checking, and tests.
 - [x] Add `scripts/ci.sh` to run all required checks locally; do not configure
   GitHub Actions.
-- [ ] Create a safe `.env.example` if environment variables are used.
+- [x] Create a safe `.env.example` if environment variables are used.
 - [ ] Add initial game and guide fixtures.
 
 Exit criteria: [TODO]

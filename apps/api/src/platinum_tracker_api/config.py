@@ -12,7 +12,7 @@ def default_project_root() -> Path:
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="PLATINUM_TRACKER_",
-        env_file=".env",
+        env_file=default_project_root() / ".env",
         extra="ignore",
     )
 

@@ -44,6 +44,21 @@ def test_api_defaults_to_ipv4_loopback() -> None:
     assert settings.api_port == 8000
 
 
+def test_environment_variables_override_local_defaults(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("PLATINUM_TRACKER_PROJECT_ROOT", str(tmp_path))
+    monkeypatch.setenv("PLATINUM_TRACKER_API_HOST", "::1")
+    monkeypatch.setenv("PLATINUM_TRACKER_API_PORT", "8123")
+
+    settings = Settings()
+
+    assert settings.project_root == tmp_path
+    assert settings.api_host == "::1"
+    assert settings.api_port == 8123
+
+
 @pytest.mark.parametrize("host", ["127.0.0.2", "::1"])
 def test_api_accepts_loopback_addresses(host: str) -> None:
     settings = Settings(api_host=host)
