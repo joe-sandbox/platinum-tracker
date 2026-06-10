@@ -1,13 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppShell } from "@/components/app-shell";
-import {
-  DashboardPage,
-  GamesPage,
-  GuidesPage,
-  ImportPage,
-  SettingsPage,
-} from "@/pages";
+import { GamesPage, GuidesPage } from "@/crud-pages";
+import { DashboardPage, ImportPage, SettingsPage } from "@/pages";
 
 function App() {
   return (

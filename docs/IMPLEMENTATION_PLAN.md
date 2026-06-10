@@ -30,7 +30,7 @@ loads fixtures, and `./scripts/ci.sh` passes.
 ## Milestone 1: Guide Content
 
 - [x] Build the application shell and navigation.
-- [ ] Implement game and guide CRUD.
+- [x] Implement game and guide CRUD.
 - [ ] Implement chapters, sections, collectible types, and collectibles.
 - [ ] Implement ordering within each hierarchy level.
 - [ ] Add multiple collectible images.

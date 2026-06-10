@@ -6,7 +6,6 @@ import {
   Gamepad2,
   Image,
   Import,
-  Plus,
   Settings,
   Trophy,
 } from "lucide-react";
@@ -21,7 +20,12 @@ type PageHeaderProps = {
   action?: ReactNode;
 };
 
-function PageHeader({ eyebrow, title, description, action }: PageHeaderProps) {
+export function PageHeader({
+  eyebrow,
+  title,
+  description,
+  action,
+}: PageHeaderProps) {
   return (
     <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
@@ -46,7 +50,11 @@ type PlaceholderCardProps = {
   description: string;
 };
 
-function PlaceholderCard({ icon, title, description }: PlaceholderCardProps) {
+export function PlaceholderCard({
+  icon,
+  title,
+  description,
+}: PlaceholderCardProps) {
   return (
     <section className="rounded-2xl border bg-card p-6 text-card-foreground shadow-xs">
       <div className="grid size-11 place-items-center rounded-xl bg-muted text-muted-foreground">
@@ -122,52 +130,6 @@ export function DashboardPage() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-export function GamesPage() {
-  return (
-    <div className="space-y-8">
-      <PageHeader
-        action={
-          <Button size="lg">
-            <Plus aria-hidden="true" data-icon="inline-start" />
-            Add game
-          </Button>
-        }
-        description="Manage the games available in this local installation."
-        eyebrow="Library"
-        title="Games"
-      />
-      <PlaceholderCard
-        description="The initial fixture is available. Game creation and editing arrive in the next feature."
-        icon={<Gamepad2 aria-hidden="true" className="size-5" />}
-        title="Example Adventure"
-      />
-    </div>
-  );
-}
-
-export function GuidesPage() {
-  return (
-    <div className="space-y-8">
-      <PageHeader
-        action={
-          <Button size="lg">
-            <Plus aria-hidden="true" data-icon="inline-start" />
-            Add guide
-          </Button>
-        }
-        description="Create and organize platinum guides for the selected game."
-        eyebrow="Example Adventure"
-        title="Guides"
-      />
-      <PlaceholderCard
-        description="Add chapters, sections, collectible types, and collectibles when the guide editor is implemented."
-        icon={<BookOpen aria-hidden="true" className="size-5" />}
-        title="Example Adventure Platinum Guide"
-      />
     </div>
   );
 }

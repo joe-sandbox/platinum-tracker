@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import App from "./App";
 
@@ -13,6 +13,17 @@ function renderApp(initialPath = "/") {
 }
 
 describe("App", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => [],
+      }),
+    );
+  });
+
   it("renders the dashboard inside the application shell", () => {
     renderApp();
 

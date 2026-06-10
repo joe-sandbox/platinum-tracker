@@ -29,3 +29,57 @@ test("uses mobile navigation on a narrow viewport", async ({ page }) => {
   await expect(page).toHaveURL(/\/settings$/);
   await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
 });
+
+test("creates, edits, and deletes a game and guide", async ({ page }) => {
+  const suffix = Date.now().toString();
+  const gameTitle = `E2E Game ${suffix}`;
+  const updatedGameTitle = `${gameTitle} Updated`;
+  const guideTitle = `E2E Guide ${suffix}`;
+  const updatedGuideTitle = `${guideTitle} Updated`;
+
+  await page.goto("/games");
+  await page.getByRole("button", { name: "Add game" }).click();
+  await page.getByLabel("Title").fill(gameTitle);
+  await page.getByLabel("Platform").fill("PlayStation 5");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByRole("heading", { name: gameTitle })).toBeVisible();
+
+  await page.getByRole("button", { name: `Edit ${gameTitle}` }).click();
+  await page.getByLabel("Title").fill(updatedGameTitle);
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(
+    page.getByRole("heading", { name: updatedGameTitle }),
+  ).toBeVisible();
+
+  await page.goto("/guides");
+  await page.getByRole("button", { name: "Add guide" }).click();
+  await page.getByLabel("Game").selectOption({ label: updatedGameTitle });
+  await page.getByLabel("Title").fill(guideTitle);
+  await page.getByLabel("Description").fill("Created by Playwright.");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByRole("heading", { name: guideTitle })).toBeVisible();
+
+  await page.getByRole("button", { name: `Edit ${guideTitle}` }).click();
+  await page.getByLabel("Title").fill(updatedGuideTitle);
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(
+    page.getByRole("heading", { name: updatedGuideTitle }),
+  ).toBeVisible();
+
+  page.once("dialog", (dialog) => dialog.accept());
+  await page
+    .getByRole("button", { name: `Delete ${updatedGuideTitle}` })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: updatedGuideTitle }),
+  ).not.toBeVisible();
+
+  await page.goto("/games");
+  page.once("dialog", (dialog) => dialog.accept());
+  await page
+    .getByRole("button", { name: `Delete ${updatedGameTitle}` })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: updatedGameTitle }),
+  ).not.toBeVisible();
+});
